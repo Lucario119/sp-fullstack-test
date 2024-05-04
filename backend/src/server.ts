@@ -4,7 +4,7 @@ import { connectDB } from './database/db';
 import { searchRoute, uploadRoute } from './routes';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 connectDB();
 app.use(cors());
