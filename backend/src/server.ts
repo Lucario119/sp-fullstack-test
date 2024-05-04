@@ -13,6 +13,6 @@ app.use(express.json());
 app.use('/api/files', uploadRoute);
 app.use('/api/users', searchRoute);
 
-
-export { app, port };
-
+app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+});
