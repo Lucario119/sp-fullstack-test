@@ -4,7 +4,7 @@ let db: sqlite3.Database;
 
 export const connectDB = async () => {
   try {
-    db = new sqlite3.Database('./database.db');
+    db = new sqlite3.Database(':memory:');
     await new Promise<void>((resolve, reject) => {
       db.run(`
         CREATE TABLE IF NOT EXISTS users (
