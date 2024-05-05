@@ -7,7 +7,7 @@ interface IUserCardItemProps {
 
 export function UserCard({userData}: IUserCardItemProps) {
   return (
-    <div className="flex flex-col gap-2 border-[1px] border-black p-4">
+    <div className="flex flex-col gap-2 border-[1px] border-black p-3 lg:w-[15rem] md:[14rem]">
       <span>
        <strong>Name: </strong>
        <p>{userData.name}</p>

@@ -5,8 +5,10 @@ import { UserCard } from '@/components/UserCard';
 import { useCsvUsersData } from '@/hooks/useCsvUserData';
 import { uploadCsvFile } from '@/services/api';
 import { UserDataProps } from '@/types/User';
+import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+
 
 export default function HomeContent() {
   const [csvFile, setCsvFile] = useState<File | null>()
@@ -39,9 +41,9 @@ export default function HomeContent() {
 }
   return (
 	
-    <div className="h-screen w-screen flex flex-col justify-start items-center py-10">
+    <div className="h-screen w-screen flex flex-col justify-start items-center gap-4 py-10 px-10">
       <div className='flex flex-col items-center gap-4 '>
-		<h2>Upload your csv file</h2>
+		<h1>Upload your csv file</h1>
 	     <label htmlFor="file-input">
 			<div
 				className='w-32 h-32 rounded-full border-[1px] border-black flex items-center justify-center cursor-pointer'
@@ -53,7 +55,7 @@ export default function HomeContent() {
 						accept=".csv"
 						className='hidden'
 					/>
-						
+				<Image src='/upload-sign-svgrepo-com.svg' width={40} height={40} alt='upload'/>
 			</div>
 	
 		 </label>
@@ -70,9 +72,9 @@ export default function HomeContent() {
 	  </div>
 
      {isUploaded && (
-	 <div className='flex flex-col gap-10'>
+	 <div className='flex flex-col gap-10 pb-10'>
 		<Input/>  
-		<div className='md:grid md:grid-cols-5 gap-4 flex flex-col'>
+		<div className='md:grid lg:grid-cols-4 md:grid-cols-3 gap-4 flex flex-col'>
 			{csvUsersData.map((item: UserDataProps, index: number)=> (
 				<UserCard key={index} userData={item}/>
 			))}

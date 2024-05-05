@@ -42,7 +42,7 @@ export const UsersDataProvider: React.FC<UsersDataProviderProps> = ({
       setCsvUsersData(responseData.data);
     } catch (error:any) {
       toast.error(error.message)
-      console.error("Error fetching CSV data:", error);
+
     } finally {
       setTimeout(() => {
         setLoading(false);

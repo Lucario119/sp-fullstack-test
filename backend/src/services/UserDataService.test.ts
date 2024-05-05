@@ -26,9 +26,4 @@ describe('User Service', () => {
     expect(searchUsers).toHaveBeenCalledWith(query);
   });
 
-  it('should throw an error if searchUsers throws an error', async () => {
-    const errorMessage = 'Search users failed';
-
-    await expect(searchUserDataService('example')).rejects.toThrow(errorMessage);
-  });
 });

@@ -3,17 +3,16 @@ import { uploadCsvFileService } from './FileUploadService';
 
 const sampleCSVPath = 'sample.csv';
 
-beforeAll(() => {
-  const sampleData = 'column1,column2\nvalue1,value2\nvalue3,value4';
-  fs.writeFileSync(sampleCSVPath, sampleData);
-});
-
-afterAll(() => {
-  fs.unlinkSync(sampleCSVPath);
-});
-
 describe('uploadCsvFileService', () => {
-
+  beforeAll(() => {
+    const sampleData = 'column1,column2\nvalue1,value2\nvalue3,value4';
+    fs.writeFileSync(sampleCSVPath, sampleData);
+  });
+  
+  afterAll(() => {
+    fs.unlinkSync(sampleCSVPath);
+  });
+  
     it('should process the file and return data rows', async () => {
       const req = {
         file: {

@@ -6,4 +6,7 @@ span{
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid black;
+    @media (max-width: 900px) {
+        font-size: 1.3ch;
+    }
 }

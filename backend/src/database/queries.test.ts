@@ -1,23 +1,26 @@
 import sqlite3 from 'sqlite3';
 import { UserDataProps } from '../types/types';
+import { connectDB, getDB } from './db';
 import { insertUser, searchUsers } from './queries';
 
-jest.mock('./db', () => ({
-  getDB: jest.fn(() => new sqlite3.Database(':memory:')),
-}));
 
+jest.mock('sqlite3', () => ({
+  Database: jest.fn(() => ({
+    run: jest.fn(),
+    close: jest.fn(),
+  })),
+}));
 describe('Database queries', () => {
   let db: sqlite3.Database;
 
-  beforeAll(() => {
-    db = new sqlite3.Database(':memory:');
+  beforeEach(async () => {
 
-    db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, city TEXT, country TEXT, favorite_sport TEXT)");
+    await connectDB();
+    db = getDB();
   });
 
-  afterAll((done) => {
- 
-    db.close(done);
+  afterEach(() => {
+    db?.close();
   });
 
   describe('insertUser', () => {
@@ -31,6 +34,7 @@ describe('Database queries', () => {
 
       await insertUser(user);
 
+
       db.get('SELECT * FROM users WHERE name = ?', [user.name], (err, row: UserDataProps) => {
         expect(row.name).toBe(user.name);
         expect(row.city).toBe(user.city);
@@ -41,7 +45,7 @@ describe('Database queries', () => {
   });
 
   describe('searchUsers', () => {
-    beforeAll(async () => {
+    it('should return users matching the search term', async () => {
       const users = [
         { name: 'John Doe', city: 'New York', country: 'USA', favorite_sport: 'Basketball' },
         { name: 'Jane Smith', city: 'Los Angeles', country: 'USA', favorite_sport: 'Soccer' },
@@ -51,19 +55,29 @@ describe('Database queries', () => {
       for (const user of users) {
         await insertUser(user);
       }
-    });
 
-    it('should return users matching the search term', async () => {
+
       const searchTerm = 'New York';
-      const users = await searchUsers(searchTerm);
-      expect(users.length).toBe(1);
-      expect(users[0].name).toBe('John Doe');
+      const searchResult = await searchUsers(searchTerm);
+      expect(searchResult.length).toBe(1);
+      expect(searchResult[0].name).toBe('John Doe');
     });
 
     it('should return empty array if no users match the search term', async () => {
+
+      const users = [
+        { name: 'John Doe', city: 'New York', country: 'USA', favorite_sport: 'Basketball' },
+        { name: 'Jane Smith', city: 'Los Angeles', country: 'USA', favorite_sport: 'Soccer' },
+        { name: 'Alice Johnson', city: 'London', country: 'UK', favorite_sport: 'Tennis' }
+      ];
+
+      for (const user of users) {
+        await insertUser(user);
+      }
+
       const searchTerm = 'Tokyo';
-      const users = await searchUsers(searchTerm);
-      expect(users.length).toBe(0);
+      const searchResult = await searchUsers(searchTerm);
+      expect(searchResult.length).toBe(0);
     });
   });
 });
