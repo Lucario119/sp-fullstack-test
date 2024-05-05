@@ -17,10 +17,20 @@ This is my Shaw And Partners fullstack evaluation, that is an application that t
 2. Install dependencies: `npm install`
 3. Run the tests: `npm run test`
 
+### Frontend Testing
+
+1. Change to the backend directory: `cd frontend`
+2. Install dependencies: `npm install`
+3. Run the tests: `npm run test`
+   
 ### Running the Backend
 
 1. Navigate to the backend directory: `cd backend`
 2. Install the necessary node modules: `npm install`
 3. Start the backend server (default port is 3000): `npm run dev`
 
+### Production 
+
+- Frontend: https://sp-fullstack-test.vercel.app/
+- Backend: https://sp-fullstack-test.onrender.com
 
