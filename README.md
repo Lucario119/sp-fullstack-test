@@ -17,6 +17,12 @@ This is my Shaw And Partners fullstack evaluation, that is an application that t
 2. Install dependencies: `npm install`
 3. Run the tests: `npm run test`
 
+### Frontend Testing
+
+1. Change to the backend directory: `cd frontend`
+2. Install dependencies: `npm install`
+3. Run the tests: `npm run test`
+   
 ### Running the Backend
 
 1. Navigate to the backend directory: `cd backend`
