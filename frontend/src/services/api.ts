@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://sp-fullstack-test.onrender.com'
 
 export async function getUsersData(searchValue: string) {
   try {
